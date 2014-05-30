@@ -1,0 +1,59 @@
+@charset 'utf-8';
+
+body {
+	padding: 0;
+	margin: 0;
+}
+
+.ajaxSearchSuggestWrapper {
+	box-sizing: border-box;
+	display: none;
+	position: absolute;
+	background: #fff !important;
+	border: 1px solid #595959;
+	-webkit-box-shadow: 0 5px 10px rgba(0,0,0,.5);
+	box-shadow: 0 5px 10px rgba(0,0,0,.5);
+	z-index: 10;
+}
+.ajaxSearchSuggestWrapper * {
+	box-sizing: border-box;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.ajaxSearchSuggestWrapper .ajaxSearchSuggest {
+	position: absolute !important;
+}
+.ajaxSearchSuggestWrapper .ajaxSearchSuggest ul.ajaxSearchSuggestList {
+	list-style: none;
+	margin: 0!important;
+	padding: 0 !important;
+	overflow: visible;
+}
+.ajaxSearchSuggestWrapper .ajaxSearchSuggest ul.ajaxSearchSuggestList li.ajaxSearchSuggestListItem {
+	color: #000 !important;
+	white-space: nowrap !important;
+	text-align: left !important;
+	padding: 2px 5px !important;
+	margin: 0 !important;
+	cursor: pointer !important;
+	background: none !important;
+	border: none !important;
+	display: block !important;
+	font-weight: normal !important;
+	float: none !important;
+	overflow: visible !important;
+}
+.ajaxSearchSuggestWrapper .ajaxSearchSuggest ul.ajaxSearchSuggestList li.selected {
+	color: #fff !important;
+	background: #3c77d4 !important;
+}
+.ajaxSearchSuggestWrapper .selectKey {
+	position: absolute !important;
+	bottom: 0 !important;
+	line-height: 20px !important;
+	height: 20px !important;
+	border-top: 1px solid #595959;
+	font-size: 75%;
+	color: #666;
+	text-align: center;
+}
