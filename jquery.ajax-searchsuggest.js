@@ -57,8 +57,6 @@ $.fn.ajaxSearchSuggest = function(){
 			var keycode = [9,40,38,27,16,17,18];
 			// 9:tab, 40:down arrow 38:up arrow, 27:esc, 16:shift, 17:control, 18:option
 			if( $.inArray(e.which,keycode) === -1 ){
-				// e.which が keycode になければ、-1
-				// without e.which in keycode, return -1
 				var v = $( this ).val();
 				if( v.length === 0 ){
 					$wrapper.hide();
@@ -172,18 +170,14 @@ $.fn.ajaxSearchSuggest = function(){
 
 function setPos($elm){
 
-	// TwentyFourteen テーマのように最初、検索窓が非表示の場合に、$elm の位置を取得できない。
-	// だから、親要素が非表示だったら、一旦表示させて、位置を取得後、非表示に戻す。
-
 	var has_none = false;
 	var $parents = $elm.parents(), $parent, styles;
-
 
 	$parents.each(function(){
 		if($(this).css('display') == 'none'){
 			has_none = true;
 			$parent = $(this);
-			styles = $parent.attr('style'); // 元々、親要素にstyle属性が設定されている場合はそれを取得し、されてない場合はundefined
+			styles = $parent.attr('style');
 			return false;
 		}
 	});
