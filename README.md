@@ -22,6 +22,8 @@ EXAMPLE
 ```html
 <!-- HTML -->
 <input type="text" name="s">
+<input type="search" name="s">
+<input type="url" name="s">
 ```
 
 ```javascript
