@@ -227,7 +227,7 @@ var isMobile = function(){
 };
 
 var isUA = function( arg ){
-  return new RegExp(arg, 'i').test(navigator.userAgent);
+	return new RegExp(arg, 'i').test(navigator.userAgent);
 };
 
 })(jQuery);
