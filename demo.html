@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+<title>検索候補</title>
+
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.13.0/build/cssreset/cssreset-min.css">
+<link rel="stylesheet" href="style.css" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript" src="jquery.ajax-searchsuggest.js"></script>
+<script type="text/javascript">
+jQuery(function($){
+	$('.s').ajaxSearchSuggest();
+});
+</script>
+<style>
+	html,
+	body {
+		height: 100%;
+	}
+	.search {
+		width: 900px;
+		margin: 100px auto 40px;
+		padding: 10px 10px 25px;
+		text-align: center;
+		background: #999;
+		border-radius: 10px;
+	}
+	.search h1 {
+		color: #eee;
+		margin-bottom: 10px;
+	}
+
+	.contents {
+		width: 900px;
+		margin: 0 auto 20px;
+	}
+	.contents h2 {
+		text-align: center;
+		font-weight: bold;
+		font-size: 30px;
+		padding-bottom: 20px;
+		border-bottom: 1px solid #ddd;
+		margin-bottom: 40px;
+	}
+	.contents dt {
+		font-weight: bold;
+		text-align: left;
+		font-size: 20px;
+	}
+	.contents dd {
+		margin-bottom: 3em;
+	}
+	.contents ul {
+		list-style: disc inside;
+		margin-left: 2em;
+	}
+</style>
+</head>
+<body>
+	<div class="search">
+		<h1>Ajax Search Suggest</h1>
+			<input type="text" class="s">
+			<!-- <input type="search" class="s"> -->
+			<!-- <input type="url" class="s"> -->
+
+	</div>
+
+	<div class="contents">
+		<h2>jQuery.ajax-searchsuggest.js</h2>
+
+		<dl>
+			<dt>What's This？</dt>
+			<dd>
+				<ul>
+					<li>jQuery plugin using Google Suggest API to show auto suggests under the search field.</li>
+				</ul>
+			</dd>
+
+			<dt>Keyboard Operation</dt>
+			<dd>
+				<ul>
+					<li>With Tab or &darr; key, you can choose from top to bottom search suggestions.</li>
+					<li>With Shift + Tab or &uarr; key, you can choose from bottom to top search suggestions.</li>
+					<li>At the search suggestion selected, if you press the Enter key, the words enter the search field.</li>
+					<li>Search suggestions disappears when you press the esc key.</li>
+				</ul>
+			</dd>
+
+			<dt>Mouse Operation</dt>
+			<dd>
+				<ul>
+					<li>If you click on the search suggestions, the words enter the search field.</li>
+				</ul>
+			</dd>
+		</dl>
+	</div>
+</body>
+</html>
