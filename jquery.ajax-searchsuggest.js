@@ -15,24 +15,24 @@ $.fn.ajaxSearchSuggest = function(){
 
 		if( $.inArray($(this).attr('type'), ['text','search','url']) === -1 ) return;
 
-  	var text = '';
-    if((navigator.browserLanguage || navigator.language || navigator.userLanguage).substr(0,2) === 'ja') {
-    	text = 'Tab &darr;&uarr; キーで選択';
-    } else {
-    	text = 'Select by Tab or &darr;&uarr; key';
-    }
-
+	  	var text = '';
+	 	if((navigator.browserLanguage || navigator.language || navigator.userLanguage).substr(0,2) === 'ja') {
+	 		text = 'Tab &darr;&uarr; キーで選択';
+		} else {
+			text = 'Select by Tab or &darr;&uarr; key';
+		}
+	
 		var div = '<div class="ajaxSearchSuggestWrapper"><div class="ajaxSearchSuggest"></div>';
 		div += ( ! isMobile() )? '<div class="selectKey">'+ text +'</div></div>' : '</div>';
-
+	
 		$(this).after(div);
-
+	
 		var $self = $(this);
 		var $wrapper = $(this).next('.ajaxSearchSuggestWrapper');
 		var $suggest = $wrapper.children('.ajaxSearchSuggest');
-
+	
 		setPos($self);
-
+	
 		$(window).resize(function() {
 			setPos($self);
 		});
@@ -63,8 +63,8 @@ $.fn.ajaxSearchSuggest = function(){
 					$suggest.html('');
 					return;
 				}
-
-				$.ajax( {
+	
+				$.ajax({
 					url : 'https://www.google.com/complete/search',
 					dataType : 'jsonp',
 					data : {
@@ -73,65 +73,65 @@ $.fn.ajaxSearchSuggest = function(){
 						nolabels : 't'
 					},
 					success : function(data) {
-
+	
 						var len =  data[1].length;
 						if(len === 0){
 							$wrapper.hide();
 							$suggest.html('');
 							return;
 						}
-
+	
 						var html = '<ul class="ajaxSearchSuggestList">';
 						for(var i = 0; i<len; i++){
 							html += '<li class="ajaxSearchSuggestListItem">' + data[1][i][0] + '</li>';
 						}
 						html += '</ul>';
 						$suggest.html(html);
-
+	
 						var $ul = $suggest.children('ul');
-
+	
 						var borderWidth = $wrapper.css('border-left-width').replace('px', '')*1 + $wrapper.css('border-right-width').replace('px', '')*1;
-
+	
 						$ul.css('min-width', $self.outerWidth() - borderWidth);
-
+	
 						$wrapper
 							.show()
 							.css('min-width',$self.outerWidth())
 							.innerWidth($ul.outerWidth())
 							.height(( ! isMobile() )? $ul.outerHeight() + $('.selectKey', $wrapper).outerHeight() : $ul.outerHeight())
 							.children('.selectKey').innerWidth($ul.outerWidth());
-
+	
 						$('li', $suggest).click(function(){
 							$self.val($(this).text());
 							$wrapper.hide();
 							$suggest.html('');
 						});
-
+	
 						$('body').not($wrapper).click(function(){
 							$wrapper.hide();
 							$suggest.html('');
 						});
-
+	
 						var ary = [];
 						$('li', $suggest).mousemove(function(){
-								$('li', $suggest).removeClass('selected');
-								if( ! $(this).hasClass('selected')){
-									$(this).addClass('selected');
-									ary.push($('li', $suggest).index($(this)));
-									if(ary.length > 2){
-										ary.shift();
-									}
-									if(ary[0] != ary[1]){
-										$('li', $suggest).eq(ary[0]).removeClass('selected');
-									}
+							$('li', $suggest).removeClass('selected');
+							if( ! $(this).hasClass('selected')){
+								$(this).addClass('selected');
+								ary.push($('li', $suggest).index($(this)));
+								if(ary.length > 2){
+									ary.shift();
 								}
+								if(ary[0] != ary[1]){
+									$('li', $suggest).eq(ary[0]).removeClass('selected');
+								}
+							}
 						});
 					}
 				});
 			} else if($.inArray(e.which,[9,40,38]) !== -1){
 				// 9:tab, 40:down arrow 38:up arrow
 				var index = $('li', $suggest).index($('.selected', $suggest));
-
+	
 				if( index === -1 ){
 					if( (e.which === 9 && e.shiftKey === false) || e.which === 40 ){
 						$('li:first-child', $suggest).addClass('selected');
@@ -160,7 +160,6 @@ $.fn.ajaxSearchSuggest = function(){
 				$wrapper.hide();
 				$suggest.html('');
 			}
-
 		});
 	});
 
