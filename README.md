@@ -22,11 +22,7 @@ EXAMPLE
 <input type="text" name="s">
 ```
 ```javascript
-<script type="text/javascript">
-jQuery(function($){
-  $('[name=S]').ajaxSearchSuggest();
-});
-</script>
+$('[name=s]').ajaxSearchSuggest();
 ```
 
 ## Authors
