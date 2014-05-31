@@ -1,7 +1,7 @@
 jquery.ajax-searchsuggest
 =========================
 
-jQuery plugin using Google Suggest API
+jQuery plugin using Google Suggest API to show auto suggests under the search filed.
 
 ## Installation
 
@@ -18,9 +18,12 @@ $(selector).ajaxSearchSuggest();
 ```
 
 EXAMPLE
+
+HTML
 ```html
 <input type="text" name="s">
 ```
+JavaScirpt
 ```javascript
 $('[name=s]').ajaxSearchSuggest();
 ```
