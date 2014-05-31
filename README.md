@@ -19,12 +19,13 @@ $(selector).ajaxSearchSuggest();
 
 EXAMPLE
 
-HTML
 ```html
+<!-- HTML -->
 <input type="text" name="s">
 ```
-JavaScirpt
+
 ```javascript
+// JavaScirpt 
 $('[name=s]').ajaxSearchSuggest();
 ```
 
