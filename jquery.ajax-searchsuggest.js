@@ -200,7 +200,8 @@ function setPos($elm){
 	function _setPos($elm){
 		var h;
 		if(isUA('chrome|iphone')){
-			h = $elm.height() + $elm.css('border-top-width').replace('px', '')*1 + $elm.css('border-top-width').replace('px', '')*1;
+			h = $elm.height() + $elm.css('border-top-width').replace('px', '')*1 + $elm.css('border-bottom-width').replace('px', '')*1;
+			h += $elm.css('padding-top').replace('px', '')*1 + $elm.css('padding-bottom').replace('px', '')*1;
 		} else if(isUA('firefox|safari|msie|trident')){
 			h = $elm.outerHeight();
 		}
