@@ -4,7 +4,8 @@ body {
 	padding: 0;
 	margin: 0;
 }
-.ajaxSearchSuggestWrapper {
+
+div.ajaxSearchSuggestWrapper {
 	box-sizing: border-box;
 	display: none;
 	position: absolute;
@@ -14,21 +15,19 @@ body {
 	box-shadow: 0 5px 10px rgba(0,0,0,.5);
 	z-index: 10;
 }
-.ajaxSearchSuggestWrapper * {
+div.ajaxSearchSuggestWrapper * {
 	box-sizing: border-box;
-  	padding: 0 !important;
-  	margin: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
-.ajaxSearchSuggestWrapper .ajaxSearchSuggest {
-	position: absolute !important;
-}
-.ajaxSearchSuggestWrapper .ajaxSearchSuggest ul.ajaxSearchSuggestList {
+
+div.ajaxSearchSuggestWrapper ul.ajaxSearchSuggest  {
 	list-style: none;
 	margin: 0!important;
 	padding: 0 !important;
 	overflow: visible;
 }
-.ajaxSearchSuggestWrapper .ajaxSearchSuggest ul.ajaxSearchSuggestList li.ajaxSearchSuggestListItem {
+div.ajaxSearchSuggestWrapper ul.ajaxSearchSuggest  li.ajaxSearchSuggestListItem {
 	color: #000 !important;
 	white-space: nowrap !important;
 	text-align: left !important;
@@ -42,13 +41,11 @@ body {
 	float: none !important;
 	overflow: visible !important;
 }
-.ajaxSearchSuggestWrapper .ajaxSearchSuggest ul.ajaxSearchSuggestList li.selected {
+div.ajaxSearchSuggestWrapper ul.ajaxSearchSuggest li.selected {
 	color: #fff !important;
 	background: #3c77d4 !important;
 }
-.ajaxSearchSuggestWrapper .selectKey {
-	position: absolute !important;
-	bottom: 0 !important;
+div.ajaxSearchSuggestWrapper div.selectKey {
 	line-height: 20px !important;
 	height: 20px !important;
 	border-top: 1px solid #595959;
