@@ -59,9 +59,9 @@ jQuery(function($){
 </style>
 </head>
 <body>
-	<div class="search">
+	<div class="search" style="position: relative">
 		<h1>Ajax Search Suggest</h1>
-			<form action="" method="get">
+			<form action="index.html" method="get">
 				<input type="text" class="s">
 				<!-- <input type="search" class="s"> -->
 				<!-- <input type="url" class="s"> -->
@@ -75,24 +75,24 @@ jQuery(function($){
 			<dt>What's This？</dt>
 			<dd>
 				<ul>
-					<li>jQuery plugin using Google Suggest API to show auto suggests under the search field.</li>
+					<li>jQuery plugin using Google Suggest API to show auto suggestions under the search field.</li>
 				</ul>
 			</dd>
 
 			<dt>Keyboard Operation</dt>
 			<dd>
 				<ul>
-					<li>With Tab or &darr; key, you can choose from top to bottom search suggestions.</li>
-					<li>With Shift + Tab or &uarr; key, you can choose from bottom to top search suggestions.</li>
-					<li>At the search suggestion selected, if you press the Enter key, the words enter the search field.</li>
-					<li>Search suggestions disappears when you press the esc key.</li>
+					<li>With Tab or &darr; key, you can choose search suggestions from top to bottom.</li>
+					<li>With Shift + Tab or &uarr; key, you can choose search suggestions from bottom to top.</li>
+					<li>if you press the Enter key at the suggestion selected, the words enter the search field.</li>
+					<li>When you press the esc key, Search suggestions disappears.</li>
 				</ul>
 			</dd>
 
 			<dt>Mouse Operation</dt>
 			<dd>
 				<ul>
-					<li>If you click on the search suggestions, the words enter the search field.</li>
+					<li>If you click on the search suggestion, the words enter the search field.</li>
 				</ul>
 			</dd>
 		</dl>
