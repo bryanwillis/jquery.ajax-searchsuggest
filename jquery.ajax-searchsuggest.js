@@ -9,9 +9,7 @@
 
 $.fn.ajaxSearchSuggest = function(){
 
-	var elms = this;
-
-	$(elms).each(function(){
+	$(this).each(function(){
 
 		if( $.inArray($(this).attr('type'), ['text','search','url']) === -1 ) return;
 
@@ -23,7 +21,7 @@ $.fn.ajaxSearchSuggest = function(){
     }
 
 		var div = '<div class="ajaxSearchSuggestWrapper"><ul class="ajaxSearchSuggest"></ul>';
-		div += ( ! isMobile() )? '<div class="selectKey">'+ text +'</div></div>' : '</div>';
+		div += ( ! isMobile() )? '<div class="selectionKey">'+ text +'</div></div>' : '</div>';
 
 		$(this).parents('form').after(div);
 
@@ -42,7 +40,7 @@ $.fn.ajaxSearchSuggest = function(){
 				// Pressing Tab key,do nothing.
 				return false;
 			} else if( e.which === 13 ){
-				//  Pressing Enter key,input search words in the text field.
+				//  Pressing Enter key,input the selected words in the text field.
 				if($('li', $suggest).hasClass('selected')){
 					$self.val($('.selected', $suggest).text());
 				}
@@ -54,73 +52,7 @@ $.fn.ajaxSearchSuggest = function(){
 		});
 
 		$self.keyup(function(e){
-			var keycode = [9,40,38,27,16,17,18];
-			// 9:tab, 40:down arrow 38:up arrow, 27:esc, 16:shift, 17:control, 18:option
-			if( $.inArray(e.which,keycode) === -1 ){
-				// e.which が keycode になければ、-1
-				// without e.which in keycode, return -1
-				var v = $( this ).val();
-				if( v.length === 0 ){
-					$wrapper.hide();
-					$suggest.html('');
-					return;
-				}
-
-				$.ajax( {
-					url : 'https://www.google.com/complete/search',
-					dataType : 'jsonp',
-					data : {
-						q : v,
-						client : 'hp',
-						nolabels : 't'
-					},
-					success : function(data) {
-
-						var len =  data[1].length;
-						if(len === 0){
-							$wrapper.hide();
-							$suggest.html('');
-							return;
-						}
-
-						var html = '';
-						for(var i = 0; i<len; i++){
-							html += '<li class="ajaxSearchSuggestListItem">' + data[1][i][0] + '</li>';
-						}
-						$suggest.html(html);
-
-						$wrapper
-							.show()
-							.css('min-width',$self.outerWidth())
-
-						$('li', $suggest).click(function(){
-							$self.val($(this).text());
-							$wrapper.hide();
-							$suggest.html('');
-						});
-
-						$('body').not($wrapper).click(function(){
-							$wrapper.hide();
-							$suggest.html('');
-						});
-
-						var ary = [];
-						$('li', $suggest).mousemove(function(){
-								$('li', $suggest).removeClass('selected');
-								if( ! $(this).hasClass('selected')){
-									$(this).addClass('selected');
-									ary.push($('li', $suggest).index($(this)));
-									if(ary.length > 2){
-										ary.shift();
-									}
-									if(ary[0] != ary[1]){
-										$('li', $suggest).eq(ary[0]).removeClass('selected');
-									}
-								}
-						});
-					}
-				});
-			} else if($.inArray(e.which,[9,40,38]) !== -1){
+			if($.inArray(e.which,[9,40,38]) !== -1){
 				// 9:tab, 40:down arrow 38:up arrow
 				var index = $('li', $suggest).index($('.selected', $suggest));
 
@@ -152,7 +84,81 @@ $.fn.ajaxSearchSuggest = function(){
 				$wrapper.hide();
 				$suggest.html('');
 			}
+		});
 
+		$self.focus(function(){
+			var t =  $(this);
+			var v,cl,pl = 0;
+
+			setInterval(function(){
+				v = t.val();
+				cl = v.length;
+
+				if( cl === 0 ){
+					$wrapper.hide();
+					$suggest.html('');
+				}
+
+				if( cl !== pl ){
+					pl = cl;
+
+					$.ajax( {
+						url : 'https://www.google.com/complete/search',
+						dataType : 'jsonp',
+						data : {
+							q : v,
+							client : 'hp',
+							nolabels : 't'
+						},
+						success : function(data) {
+
+							var len =  data[1].length;
+							if(len === 0){
+								$wrapper.hide();
+								$suggest.html('');
+								return;
+							}
+
+							var html = '';
+							for(var i = 0; i<len; i++){
+								html += '<li class="ajaxSearchSuggestListItem">' + data[1][i][0] + '</li>';
+							}
+							$suggest.html(html);
+
+							$wrapper
+								.show()
+								.css('min-width',$self.outerWidth());
+
+							$('li', $suggest).click(function(){
+								$self.val($(this).text());
+								$wrapper.hide();
+								$suggest.html('');
+								$self.parent('form').submit();
+							});
+
+							$('body').not($wrapper).click(function(){
+								$wrapper.hide();
+								$suggest.html('');
+							});
+
+							var ary = [];
+							$('li', $suggest).mousemove(function(){
+									$('li', $suggest).removeClass('selected');
+									if( ! $(this).hasClass('selected')){
+										$(this).addClass('selected');
+										ary.push($('li', $suggest).index($(this)));
+										if(ary.length > 2){
+											ary.shift();
+										}
+										if(ary[0] != ary[1]){
+											$('li', $suggest).eq(ary[0]).removeClass('selected');
+										}
+									}
+							});
+						}
+					});
+				}
+			}, 100);
 		});
 	});
 
@@ -169,7 +175,7 @@ function setPos($elm){
 		if($(this).css('display') == 'none'){
 			has_none = true;
 			$parent = $(this);
-			styles = $parent.attr('style'); // 元々、親要素にstyle属性が設定されている場合はそれを取得し、されてない場合はundefined
+			styles = $parent.attr('style');
 			return false;
 		}
 	});
@@ -198,14 +204,8 @@ function setPos($elm){
 	}
 
 	function _setPos($elm){
-		var h;
-		if(isUA('chrome|iphone')){
-			h = $elm.height() + $elm.css('border-top-width').replace('px', '')*1 + $elm.css('border-bottom-width').replace('px', '')*1;
-			h += $elm.css('padding-top').replace('px', '')*1 + $elm.css('padding-bottom').replace('px', '')*1;
-		} else if(isUA('firefox|safari|msie|trident')){
-			h = $elm.outerHeight();
-		}
 		var pos = $elm.position();
+		var h = $elm.outerHeight();
 		var top = (pos.top + h + $elm.css('margin-top').replace('px', '')*1) + 'px';
 		var left = (pos.left + $elm.css('margin-left').replace('px', '')*1) + 'px';
 		$elm.parents('form').next().css({
@@ -218,7 +218,7 @@ function setPos($elm){
 }
 
 function isMobile(){
-	return /iphone|ip[oa]d|android/i.test(navigator.userAgent);
+	return /iphone|ip[ao]d|android/i.test(navigator.userAgent);
 };
 
 function isUA( arg ){
